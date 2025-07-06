@@ -1,0 +1,35 @@
+<div class="bg-white shadow-lg rounded-lg max-w-4xl mx-auto p-6">
+  <h3 class="text-2xl font-semibold tracking-tight text-gray-800 text-center mb-4">
+    Dashboard Overview
+  </h3>
+
+  <div class="flex flex-wrap justify-evenly gap-y-6">
+    <div class="w-40 bg-blue-100 p-4 rounded-lg text-center">
+      <p class="text-2xl font-bold text-blue-800">{{ activeProjects | async }}</p>
+      <h4 class="mt-2 text-sm font-semibold text-blue-600">
+        Active Projects
+      </h4>
+    </div>
+
+    <div class="w-40 bg-purple-100 p-4 rounded-lg text-center">
+      <p class="text-2xl font-bold text-purple-800">{{ totalTasks | async }}</p>
+      <h4 class="mt-2 text-sm font-semibold text-purple-600">
+        Total Tasks
+      </h4>
+    </div>
+
+    <div class="w-40 bg-yellow-100 p-4 rounded-lg text-center">
+      <p class="text-2xl font-bold text-yellow-800">{{ inProgress | async }}</p>
+      <h4 class="mt-2 text-sm font-semibold text-yellow-600">
+        In Progress Tasks
+      </h4>
+    </div>
+
+    <div class="w-40 bg-green-100 p-4 rounded-lg text-center">
+      <p class="text-2xl font-bold text-green-800">{{ (completionRate | async) }} %</p>
+      <h4 class="mt-2 text-sm font-semibold text-green-600">
+        Completion Rate
+      </h4>
+    </div>
+  </div>
+</div>

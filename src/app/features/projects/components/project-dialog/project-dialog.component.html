@@ -1,0 +1,28 @@
+<form #projectForm="ngForm" (ngSubmit)="onSave()" class="space-y-4">
+  <div class="p-field">
+    <label for="projectName" class="block text-sm font-medium text-gray-700">Project Name</label>
+    <input id="projectName" type="text" pInputText placeholder="Enter project name" [(ngModel)]="editableProject.name"
+      name="projectName" required class="w-full" />
+  </div>
+  <div class="p-field">
+    <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
+    <p-select id="status" [(ngModel)]="editableProject.status" [options]="statusOptions" optionLabel="label"
+      optionValue="value" placeholder="Select status" name="status" class="w-full">
+    </p-select>
+  </div>
+  <div class="p-field">
+    <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+    <textarea id="description" pTextarea placeholder="Enter project description"
+      [(ngModel)]="editableProject.description" name="description" required
+      class="w-full p-3 border border-gray-300"></textarea>
+  </div>
+  <div class="p-field">
+    <label for="owner" class="block text-sm font-medium text-gray-700">Project Owner</label>
+    <input id="owner" type="text" pInputText placeholder="Enter owner name" [(ngModel)]="editableProject.owner"
+      name="owner" required class="w-full" />
+  </div>
+  <p-footer class="text-right">
+    <p-button type="submit" label="{{ mode === 'add' ? 'Create Project' : 'Update Project' }}">
+    </p-button>
+  </p-footer>
+</form>

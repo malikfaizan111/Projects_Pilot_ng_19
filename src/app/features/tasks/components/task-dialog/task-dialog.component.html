@@ -1,0 +1,44 @@
+<form #taskForm="ngForm" (ngSubmit)="onSave()" class="space-y-4 p-4 pt-0">
+    <div class="p-field">
+        <label for="title" class="block text-sm font-medium text-gray-700">Task Title</label>
+        <input id="title" name="title" type="text" pInputText placeholder="Enter task title"
+            [(ngModel)]="editableTask.title" required
+            class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200" />
+    </div>
+    <div class="flex gap-4">
+        <div class="p-field w-1/2">
+            <label for="status" class="block text-sm font-medium text-gray-700">
+                Status
+            </label>
+            <p-select id="status" name="status" [(ngModel)]="editableTask.status" [options]="statusOptions"
+                placeholder="Select status" optionLabel="label" optionValue="value"
+                class="w-full rounded-md border-gray-300 shadow-sm"></p-select>
+        </div>
+
+        <div class="p-field w-1/2">
+            <label for="priority" class="block text-sm font-medium text-gray-700">
+                Priority
+            </label>
+            <p-select id="priority" name="priority" [(ngModel)]="editableTask.priority" [options]="priorityOptions"
+                placeholder="Select priority" optionLabel="label" optionValue="value"
+                class="w-full rounded-md border-gray-300 shadow-sm"></p-select>
+        </div>
+    </div>
+    <div class="p-field">
+        <label for="assignee" class="block text-sm font-medium text-gray-700">Assignee</label>
+        <input id="assignee" name="assignee" type="text" pInputText placeholder="Enter assignee name"
+            [(ngModel)]="editableTask.assignee" required
+            class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200" />
+    </div>
+    <div class="p-field w-70">
+        <label for="dueDate" class="block text-sm font-medium text-gray-700">Due Date</label>
+        <p-datepicker id="dueDate" name="dueDate" [(ngModel)]="editableTask.dueDate" dateFormat="yy-mm-dd" showIcon="true" [dataType]="'string'"
+            required fluid
+            styleClass="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"></p-datepicker>
+    </div>
+
+    <p-footer class="text-right">
+        <p-button type="submit" label="{{ mode === 'add' ? 'Create Task' : 'Update Task' }}">
+        </p-button>
+    </p-footer>
+</form>

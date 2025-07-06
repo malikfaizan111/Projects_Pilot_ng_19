@@ -1,0 +1,18 @@
+<div *ngIf="taskCardData | async as s" class="flex flex-wrap gap-4">
+    <div class="flex-1 rounded-lg border bg-white border-[hsl(214.3,31.8%,91.4%)] shadow-sm p-4">
+        <h3 class="text-sm font-medium">Overdue Tasks</h3>
+        <div class="text-2xl font-bold text-blue-600 mt-2">{{ s.overdueTasks }}</div>
+    </div>
+    <div class="flex-1 rounded-lg border bg-white border-[hsl(214.3,31.8%,91.4%)] shadow-sm p-4">
+        <h3 class="text-sm font-medium">Completed</h3>
+        <div class="text-2xl font-bold text-green-600 mt-2">{{ s.completed }}</div>
+    </div>
+    <div class="flex-1 rounded-lg border bg-white border-[hsl(214.3,31.8%,91.4%)] shadow-sm p-4">
+        <h3 class="text-sm font-medium">In Progress</h3>
+        <div class="text-2xl font-bold text-gray-500 mt-2">{{ s.inProgress }}</div>
+    </div>
+    <div class="flex-1 rounded-lg border bg-white border-[hsl(214.3,31.8%,91.4%)] shadow-sm p-4">
+        <h3 class="text-sm font-medium">Pending</h3>
+        <div class="text-2xl font-bold text-purple-600 mt-2">{{ s.pending }}</div>
+    </div>
+</div>

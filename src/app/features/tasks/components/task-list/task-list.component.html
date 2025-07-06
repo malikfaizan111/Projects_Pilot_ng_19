@@ -1,0 +1,83 @@
+<div class="flex-1 rounded-lg border bg-white border-[hsl(214.3,31.8%,91.4%)] shadow-sm mt-4">
+    <div class="p-3 sm:p-4">
+        <div class="flex flex-col sm:flex-row gap-4">
+            <p-inputGroup styleClass="flex-1 border-[#E0E6ED] bg-[#F8FAFC] rounded-lg shadow-sm">
+                <span class="p-inputgroup-addon border-none flex items-center justify-center px-3">
+                    <i class="pi pi-search text-[#667085]"></i>
+                </span>
+                <input pInputText type="text" placeholder="Search tasks..."
+                    (input)="onGlobalSearch($event)" styleClass="w-full px-4 py-2" />
+            </p-inputGroup>
+
+            <p-select *ngIf="selectedPriority === 'All'" [options]="statusOptions" [(ngModel)]="selectedStatus" placeholder="All Status"
+                optionLabel="label" styleClass="sm:w-50 bg-[#F8FAFC] border border-[#E0E6ED] rounded-lg shadow-sm"
+                panelStyleClass="shadow-sm rounded-lg" (ngModelChange)="onStatusChange($event)" optionLabel="label"
+                optionValue="value">
+            </p-select>
+
+            <p-select *ngIf="selectedStatus === 'All'" [options]="priorityOptions" [(ngModel)]="selectedPriority" placeholder="All Priority"
+                optionLabel="label" styleClass="sm:w-50 bg-[#F8FAFC] border border-[#E0E6ED] rounded-lg shadow-sm"
+                panelStyleClass="shadow-sm rounded-lg" (ngModelChange)="onPriorityChange($event)" optionLabel="label"
+                optionValue="value">
+            </p-select>
+
+        </div>
+    </div>
+</div>
+
+<div class="flex-1 rounded-lg border bg-white border-[hsl(214.3,31.8%,91.4%)] shadow-sm mt-3">
+    <div class="flex flex-col space-y-1.5 p-4">
+        <h3 class="text-2xl font-semibold leading-none tracking-tight">tasks ({{ (dt.filteredValue?.length ||
+            (tasks$ | async)?.length) || 0 }})
+        </h3>
+    </div>
+    <div class="p-4 pt-0">
+        <p-table #dt [value]="(tasks$ | async) || []" [paginator]="true" [rows]="10"
+            [globalFilterFields]="['title','assignee','dueDate','status','priority']" [filterDelay]="300"
+            [sortMode]="'multiple'" [rowHover]="true" [dataKey]="'id'">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="id" scope="col">Task ID <p-sortIcon field="id" class="text-left"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="title" scope="col">Title <p-sortIcon field="title"
+                            class="text-left"></p-sortIcon></th>
+                    <th pSortableColumn="assignee" scope="col">Assignee <p-sortIcon field="assignee"
+                            class="text-left"></p-sortIcon></th>
+                    <th pSortableColumn="dueDate" scope="col" pSortableColumn="dueDate" pFilterField="dueDate" filter
+                        filterPlaceholder="YYYY-MM-DD" filterMatchMode="equals">Due Date <p-sortIcon field="dueDate"></p-sortIcon></th>
+                    <th pSortableColumn="status" scope="col">Status <p-sortIcon field="status"
+                            class="text-center"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="priority" scope="col" class="text-center">Priority <p-sortIcon field="status"
+                            class="text-center"></p-sortIcon></th>
+                    <th scope="col" class="text-center">Actions</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-tasks>
+                <tr>
+                    <td class="text-left align-middle">{{ tasks.id }}</td>
+                    <td class="text-left align-middle">{{ tasks.title }}</td>
+                    <td class="text-left align-middle">{{ tasks.assignee }}</td>
+                    <td pSortableColumn="dueDate">{{ tasks.dueDate | date:'longDate' }}</td>
+                    <td style="padding-left: 45px;">
+                        <span style="white-space: nowrap;" pBadge [value]="tasks.status"
+                            [severity]="getStatusSeverity(tasks.status)">
+                        </span>
+                    </td>
+                    <td class="text-center align-middle" style="width:120px">
+                        <span style="white-space: nowrap;" pBadge [value]="tasks.priority"
+                            [severity]="getPrioritySeverity(tasks.priority)">
+                        </span>
+                    </td>
+                    <td class="text-center align-middle">
+                        <button pButton type="button" icon="pi pi-pencil" class="p-button-text ml-2"
+                            (click)="onEditTask(tasks)"></button>
+                        <button pButton type="button" icon="pi pi-trash" class="p-button-text ml-2 p-button-danger"
+                            (click)="onDeleteTask(tasks)"></button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+<app-alert-dialog></app-alert-dialog>

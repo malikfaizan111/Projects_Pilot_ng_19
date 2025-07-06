@@ -1,0 +1,90 @@
+{
+  "projects": [
+    {
+      "id": "12xrz",
+      "name": "Website Redesign",
+      "owner": "Alice",
+      "status": "Active",
+      "description": "Revamp company website for Q3",
+      "tasks": [
+        "101",
+        "102"
+      ]
+    },
+    {
+      "id": "yz8d",
+      "name": "Mobile App Launch",
+      "owner": "Bob",
+      "status": "Completed",
+      "description": "Launch Android and iOS versions",
+      "tasks": [
+        "103",
+        "104",
+        "105"
+      ]
+    },
+    {
+      "id": "cd46",
+      "name": "sfasfa",
+      "owner": "asfasf",
+      "status": "Active",
+      "description": "asfasf",
+      "tasks": []
+    },
+    {
+      "id": "e49b",
+      "name": "asdasd",
+      "owner": "asdasdd",
+      "status": "Active",
+      "description": "dasdasd",
+      "tasks": []
+    }
+  ],
+  "tasks": [
+    {
+      "id": "101",
+      "projectId": "12xrz",
+      "title": "Wireframe new homepage",
+      "assignee": "Emma",
+      "dueDate": "2025-07-10",
+      "status": "In Progress",
+      "priority": "High"
+    },
+    {
+      "id": "102",
+      "projectId": "12xrz",
+      "title": "Get stakeholder approval",
+      "assignee": "Liam",
+      "dueDate": "2025-07-12",
+      "status": "Pending",
+      "priority": "Medium"
+    },
+    {
+      "id": "103",
+      "projectId": "yz8d",
+      "title": "Beta test with internal team",
+      "assignee": "Olivia",
+      "dueDate": "2025-06-28",
+      "status": "Completed",
+      "priority": "High"
+    },
+    {
+      "id": "104",
+      "projectId": "yz8d",
+      "title": "Fix reported bugs",
+      "assignee": "Noah",
+      "dueDate": "2025-06-29",
+      "status": "Completed",
+      "priority": "High"
+    },
+    {
+      "id": "105",
+      "projectId": "yz8d",
+      "title": "Submit to app stores",
+      "assignee": "Ava",
+      "dueDate": "2025-07-01",
+      "status": "Completed",
+      "priority": "Medium"
+    }
+  ]
+}

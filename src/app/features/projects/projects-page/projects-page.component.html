@@ -1,0 +1,27 @@
+<div class="bg-[#F8FAFC] min-h-screen max-w-[100rem] px-4 py-2 sm:px-6 sm:py-4 mx-auto">
+
+  <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
+    <div>
+      <h3 class="text-4xl font-bold text-foreground">Project Dashboard</h3>
+      <p class="text-lg text-muted-foreground color text-[#77748B]">Manage your projects and track progress</p>
+    </div>
+    <div class="flex items-center gap-4">
+      <p-button label="Add Project" icon="pi pi-plus" (onClick)="openNew()">
+      </p-button>
+      <p-button icon="pi pi-sign-out" styleClass="p-button-rounded p-button-danger"
+        [ngStyle]="{'width':'40px','height':'40px','fontSize':'1.1rem'}" (onClick)="onLogout()">
+      </p-button>
+    </div>
+  </div>
+
+  <app-project-card [projectCardData]="projectCardData$"></app-project-card>
+
+  <app-project-list [projects]="projects$" (deleteProject)="deleteProject($event)"
+    (editProject)="openEdit($event)"></app-project-list>
+
+  <p-dialog header="{{ mode === 'add' ? 'Create New Project' : 'Edit Project' }}" [(visible)]="displayDialog"
+    [modal]="true" [closable]="true" [style]="{ width: '50vw' }" [contentStyle]="{ 'overflow': 'visible' }">
+    <app-project-dialog [project]="selectedProject" [mode]="mode" (save)="saveAndUpdateProject($event)">
+    </app-project-dialog>
+  </p-dialog>
+</div>

@@ -1,0 +1,83 @@
+<div class="flex-1 rounded-lg border bg-white border-[hsl(214.3,31.8%,91.4%)] shadow-sm mt-4">
+    <div class="p-3 sm:p-4">
+        <div class="flex flex-col sm:flex-row gap-4">
+            <p-inputGroup styleClass="flex-1 border-[#E0E6ED] bg-[#F8FAFC] rounded-lg shadow-sm">
+                <span class="p-inputgroup-addon border-none flex items-center justify-center px-3">
+                    <i class="pi pi-search text-[#667085]"></i>
+                </span>
+                <input pInputText type="text" placeholder="Search projects..." styleClass="w-full px-4 py-2"
+                    (input)="dt.filterGlobal($any($event.target).value, 'contains')" />
+            </p-inputGroup>
+
+            <p-select [options]="statusOptions" [(ngModel)]="selectedStatus" placeholder="All Status"
+                optionLabel="label" styleClass="sm:w-50 bg-[#F8FAFC] border border-[#E0E6ED] rounded-lg shadow-sm"
+                panelStyleClass="shadow-sm rounded-lg" (ngModelChange)="onStatusChange($event)"
+                optionLabel="label" optionValue="value">
+            </p-select>
+        </div>
+    </div>
+</div>
+
+<div class="flex-1 rounded-lg border bg-white border-[hsl(214.3,31.8%,91.4%)] shadow-sm mt-3">
+    <div class="flex flex-col space-y-1.5 p-4">
+        <h3 class="text-2xl font-semibold leading-none tracking-tight">Projects ({{ (dt.filteredValue?.length ||
+            (projects | async)?.length) || 0 }})
+        </h3>
+    </div>
+    <div class="p-4 pt-0">
+        <p-table #dt [value]="(projects | async) || []" [paginator]="true" [rows]="5"
+            [globalFilterFields]="['name','owner','description','status']" [filterDelay]="300" [sortMode]="'multiple'"
+            [rowHover]="true" [dataKey]="'id'">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 3rem" scope="col" class="text-center"></th>
+                    <th pSortableColumn="id" scope="col">Project ID <p-sortIcon field="id" class="text-left"></p-sortIcon></th>
+                    <th pSortableColumn="name" scope="col">Name <p-sortIcon field="name" class="text-left"></p-sortIcon></th>
+                    <th pSortableColumn="owner" scope="col">Owner <p-sortIcon field="owner" class="text-left"></p-sortIcon></th>
+                    <th pSortableColumn="status" scope="col">Status <p-sortIcon field="status" class="text-center"></p-sortIcon></th>
+                    <th pSortableColumn="progress" scope="col">Progress <p-sortIcon field="progress" class="text-center"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="tasks" scope="col" class="text-center">Tasks</th>
+                    <th scope="col" class="text-center">Actions</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-project let-expanded="expanded">
+                <tr>
+                    <td class="text-center align-middle">
+                        <a (click)="toggleRow(project); $event.preventDefault()">
+                            <i class="pi"
+                                [ngClass]="{ 'pi-chevron-down': expandedRowId === project.id, 'pi-chevron-right': expandedRowId !== project.id }"></i>
+                        </a>
+                    </td>
+                    <td class="text-left align-middle">{{ project.id }}</td>
+                    <td class="text-left align-middle">{{ project.name }}</td>
+                    <td class="text-left align-middle">{{ project.owner }}</td>
+                    <td style="padding-left: 45px;">
+                        <span style="white-space: nowrap;" pBadge [value]="project.status" [severity]="getBadgeSeverity(project.status)">
+                        </span>
+                    </td>
+                    <td class="text-center align-middle" style="width:120px">
+                        <p-progressBar [value]="project.progress" [showValue]="true"></p-progressBar>
+                    </td>
+                    <td class="text-center align-middle">{{ project.tasks.length }}</td>
+                    <td class="text-center align-middle">
+                        <button pButton type="button" icon="pi pi-eye" class="p-button-text"
+                            (click)="viewTasks(project)"></button>
+                        <button pButton type="button" icon="pi pi-pencil" class="p-button-text ml-2"
+                            (click)="onEditProject(project)"></button>
+                        <button pButton type="button" icon="pi pi-trash" class="p-button-text ml-2 p-button-danger"
+                            (click)="onDelete(project)"></button>
+                    </td>
+                </tr>
+                <tr *ngIf="expandedRowId === project.id">
+                    <td colspan="8" class="p-0">
+                        <div class="p-4 bg-gray-50">
+                            <strong>Description: </strong> {{ project.description }}
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+<app-alert-dialog></app-alert-dialog>

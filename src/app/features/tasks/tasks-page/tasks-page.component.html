@@ -1,0 +1,32 @@
+<div class="bg-[#F8FAFC] min-h-screen max-w-[100rem] px-4 py-2 sm:px-6 sm:py-4 mx-auto">
+
+    <div class="flex flex-col sm:flex-row justify-start items-center gap-4 mb-5">
+        <div class="flex-none">
+            <button pButton type="button" icon="pi pi-arrow-left" label="Back to Projects"
+                class="p-button-outlined p-button-success p-button-sm" (click)="router.navigateByUrl('/projects')">
+            </button>
+        </div>
+        <div class="flex-1">
+            <h3 class="text-3xl font-bold text-foreground">{{projectDetail?.name}}</h3>
+            <p class="text-medium text-muted-foreground text-[#77748B]">
+                {{projectDetail?.description}}
+            </p>
+        </div>
+        <div class="flex-none flex items-center gap-4">
+            <p-button label="Add Task" icon="pi pi-plus" (onClick)="openNew()"></p-button>
+            <p-button icon="pi pi-sign-out" styleClass="p-button-rounded p-button-danger"
+                [ngStyle]="{ width: '40px', height: '40px', fontSize: '1.1rem' }" (onClick)="onLogout()">
+            </p-button>
+        </div>
+    </div>
+
+
+    <app-task-card [taskCardData]="taskCardData$"> </app-task-card>
+
+    <app-task-list [tasks$]="tasks$" (editTask)="openEdit($event)" (deleteTask)="deleteTask($event)"></app-task-list>
+
+    <p-dialog header="{{ mode === 'add' ? 'Create New Task' : 'Edit Task' }}" [(visible)]="displayDialog" [modal]="true"
+        [closable]="true" [style]="{ width: '50vw' }"   [contentStyle]="{ 'overflow': 'visible' }">
+        <app-task-dialog [task]="selectedTask" [mode]="mode" (save)="saveOrUpdateTask($event)"></app-task-dialog>
+    </p-dialog>
+</div>

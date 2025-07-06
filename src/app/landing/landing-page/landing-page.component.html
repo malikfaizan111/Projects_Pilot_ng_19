@@ -1,0 +1,12 @@
+<div class="bg-[hsl(221,70%,85%)] p-4 sm:p-6 lg:p-4 min-h-screen">
+    <div class="text-center mb-12">
+        <h1 class="text-4xl md:text-6xl font-bold mb-3">Project & Task Management</h1>
+        <p class="text-xl mb-4 mx-auto max-w-2xl text-description-color">Streamline your workflow,
+            track
+            progress, and collaborate effectively with our comprehensive project management dashboard.</p>
+        <p-button label="Projects" icon="pi pi-arrow-right" iconPos="right" (onClick)="onNavigateToProjects()"
+            styleClass="text-white py-2 px-6 rounded-3xl text-lg font-semibold transition-all duration-300;" />
+    </div>
+    <app-dashboard-overview [activeProjects]="activeProjects$" [totalTasks]="totalTasks$" [inProgress]="inProgress$"
+        [completionRate]="completionRate$"></app-dashboard-overview>
+</div>
