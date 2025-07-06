@@ -22,22 +22,6 @@
         "104",
         "105"
       ]
-    },
-    {
-      "id": "cd46",
-      "name": "sfasfa",
-      "owner": "asfasf",
-      "status": "Active",
-      "description": "asfasf",
-      "tasks": []
-    },
-    {
-      "id": "e49b",
-      "name": "asdasd",
-      "owner": "asdasdd",
-      "status": "Active",
-      "description": "dasdasd",
-      "tasks": []
     }
   ],
   "tasks": [
@@ -64,7 +48,7 @@
       "projectId": "yz8d",
       "title": "Beta test with internal team",
       "assignee": "Olivia",
-      "dueDate": "2025-06-28",
+      "dueDate": "2025-07-14",
       "status": "Completed",
       "priority": "High"
     },
@@ -73,7 +57,7 @@
       "projectId": "yz8d",
       "title": "Fix reported bugs",
       "assignee": "Noah",
-      "dueDate": "2025-06-29",
+      "dueDate": "2025-07-07",
       "status": "Completed",
       "priority": "High"
     },

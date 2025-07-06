@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
-import { BehaviorSubject, concatMap, map, mergeMap, Observable } from 'rxjs';
+import { BehaviorSubject, concatMap, map, Observable } from 'rxjs';
 import { Task } from '../models/task.model';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Project } from '../../projects/models/project.model';
 
 @Injectable({ providedIn: 'root' })
@@ -24,17 +24,10 @@ export class TaskService {
     return this.http.get<Task[]>(`${this.tasksUrl}?projectId=${projectId}`);
   }
 
-  readonly noCache = {
-    headers: new HttpHeaders({
-      'Cache-Control': 'no-cache, no-store, must-revalidate',
-      Pragma: 'no-cache',
-      Expires: '0',
-    }),
-  };
-
   generateAlphaNumericId(length = 8): string {
     return Math.random().toString(36).substring(2, length);
   }
+
   addTaskUnderProject(projectId: string, raw: Partial<Task>): Observable<Task> {
     const generatedId = this.generateAlphaNumericId(8);
     const payload: Task = {
@@ -49,7 +42,7 @@ export class TaskService {
     return this.http.post<Task>(this.tasksUrl, payload).pipe(
       concatMap((newTask) =>
         this.http
-          .get<Project>(`${this.projectsUrl}/${projectId}`, this.noCache)
+          .get<Project>(`${this.projectsUrl}/${projectId}`)
           .pipe(
             concatMap((project) => {
               const updated = [...(project.tasks ?? []), String(newTask.id)];

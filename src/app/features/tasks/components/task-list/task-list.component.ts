@@ -18,6 +18,9 @@ import { Observable } from 'rxjs';
 import { SelectItem } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
 import { AlertDialogComponent } from '../../../../core/components/alert-dialog/alert-dialog.component';
+import { DropdownModule } from 'primeng/dropdown';
+import { DatePickerModule } from 'primeng/datepicker';
+import { TaskService } from '../../services/task.service';
 
 type PSeverity =
   | 'secondary'
@@ -37,10 +40,11 @@ type PSeverity =
     SelectModule,
     InputGroupModule,
     TableModule,
-    ProgressBarModule,
     FormsModule,
     BadgeModule,
-    AlertDialogComponent
+    AlertDialogComponent,
+    DropdownModule,
+    DatePickerModule
   ],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.css',
@@ -65,8 +69,23 @@ export class TaskListComponent {
     { label: 'Low', value: 'Low' },
   ];
 
+
+    statusTableOptions: SelectItem[] = [
+    { label: 'Pending', value: 'Pending' },
+    { label: 'In Progress', value: 'In Progress' },
+    { label: 'Completed', value: 'Completed' },
+  ];
   
 
+  constructor(private readonly taskSevice: TaskService){
+
+  }
+
+
+  onupdateChanged(task: Task) {
+  this.taskSevice.updateTask(task.id, task).subscribe({
+  });
+}
   onGlobalSearch(event: Event) {
     const value = (event.target as HTMLInputElement).value;
     this.dt.filterGlobal(value, 'contains');

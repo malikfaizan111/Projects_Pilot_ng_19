@@ -5,18 +5,20 @@
                 <span class="p-inputgroup-addon border-none flex items-center justify-center px-3">
                     <i class="pi pi-search text-[#667085]"></i>
                 </span>
-                <input pInputText type="text" placeholder="Search tasks..."
-                    (input)="onGlobalSearch($event)" styleClass="w-full px-4 py-2" />
+                <input pInputText type="text" placeholder="Search tasks..." (input)="onGlobalSearch($event)"
+                    styleClass="w-full px-4 py-2" />
             </p-inputGroup>
 
-            <p-select *ngIf="selectedPriority === 'All'" [options]="statusOptions" [(ngModel)]="selectedStatus" placeholder="All Status"
-                optionLabel="label" styleClass="sm:w-50 bg-[#F8FAFC] border border-[#E0E6ED] rounded-lg shadow-sm"
+            <p-select *ngIf="selectedPriority === 'All'" [options]="statusOptions" [(ngModel)]="selectedStatus"
+                placeholder="All Status" optionLabel="label"
+                styleClass="sm:w-50 bg-[#F8FAFC] border border-[#E0E6ED] rounded-lg shadow-sm"
                 panelStyleClass="shadow-sm rounded-lg" (ngModelChange)="onStatusChange($event)" optionLabel="label"
                 optionValue="value">
             </p-select>
 
-            <p-select *ngIf="selectedStatus === 'All'" [options]="priorityOptions" [(ngModel)]="selectedPriority" placeholder="All Priority"
-                optionLabel="label" styleClass="sm:w-50 bg-[#F8FAFC] border border-[#E0E6ED] rounded-lg shadow-sm"
+            <p-select *ngIf="selectedStatus === 'All'" [options]="priorityOptions" [(ngModel)]="selectedPriority"
+                placeholder="All Priority" optionLabel="label"
+                styleClass="sm:w-50 bg-[#F8FAFC] border border-[#E0E6ED] rounded-lg shadow-sm"
                 panelStyleClass="shadow-sm rounded-lg" (ngModelChange)="onPriorityChange($event)" optionLabel="label"
                 optionValue="value">
             </p-select>
@@ -44,9 +46,10 @@
                     <th pSortableColumn="assignee" scope="col">Assignee <p-sortIcon field="assignee"
                             class="text-left"></p-sortIcon></th>
                     <th pSortableColumn="dueDate" scope="col" pSortableColumn="dueDate" pFilterField="dueDate" filter
-                        filterPlaceholder="YYYY-MM-DD" filterMatchMode="equals">Due Date <p-sortIcon field="dueDate"></p-sortIcon></th>
-                    <th pSortableColumn="status" scope="col">Status <p-sortIcon field="status"
-                            class="text-center"></p-sortIcon>
+                        filterPlaceholder="YYYY-MM-DD" filterMatchMode="equals">Due Date <p-sortIcon
+                            field="dueDate"></p-sortIcon></th>
+                    <th  class="text-center" pSortableColumn="status" scope="col">Status <p-sortIcon field="status"
+                            ></p-sortIcon>
                     </th>
                     <th pSortableColumn="priority" scope="col" class="text-center">Priority <p-sortIcon field="status"
                             class="text-center"></p-sortIcon></th>
@@ -58,11 +61,28 @@
                     <td class="text-left align-middle">{{ tasks.id }}</td>
                     <td class="text-left align-middle">{{ tasks.title }}</td>
                     <td class="text-left align-middle">{{ tasks.assignee }}</td>
-                    <td pSortableColumn="dueDate">{{ tasks.dueDate | date:'longDate' }}</td>
-                    <td style="padding-left: 45px;">
-                        <span style="white-space: nowrap;" pBadge [value]="tasks.status"
-                            [severity]="getStatusSeverity(tasks.status)">
-                        </span>
+                    <td pEditableColumn field="dueDate">
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <p-datepicker [(ngModel)]="tasks.dueDate" dateFormat="yy-mm-dd" [appendTo]="'body'" [dataType]="'string'" (ngModelChange)="onupdateChanged(tasks)"></p-datepicker>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{ tasks.dueDate | date:'longDate' }}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td pEditableColumn field="status" class="align-middle text-center">
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <p-dropdown [options]="statusTableOptions" [(ngModel)]="tasks.status" optionLabel="label" (ngModelChange)="onupdateChanged(tasks)"
+                                    optionValue="value" [appendTo]="'body'"></p-dropdown>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                <span style="white-space: nowrap;" pBadge [value]="tasks.status"
+                                    [severity]="getStatusSeverity(tasks.status)">
+                                </span>
+                            </ng-template>
+                        </p-cellEditor>
                     </td>
                     <td class="text-center align-middle" style="width:120px">
                         <span style="white-space: nowrap;" pBadge [value]="tasks.priority"
