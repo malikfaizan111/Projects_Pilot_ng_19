@@ -1,6 +1,6 @@
 # Project & Task Management Dashboard
 
-A modern, responsive project and task management dashboard built with React, TypeScript, and shadcn/ui components.
+A modern, responsive project and task management dashboard built with Angular, TypeScript, and ui components.
 
 ## Features
 
